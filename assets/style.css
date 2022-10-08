@@ -1,0 +1,45 @@
+* {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 2rem;
+  margin-top: 2vh;
+  margin-bottom: 5vh;
+}
+
+.view-box {
+  width: 99%;
+  height: 100%;
+  display: flex;
+  border: 5px solid black;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#question {
+  display: flex;
+  border: 2px solid black;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.answer-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border: 3px solid red;
+  height: 100%;
+  width: 100%;
+  margin: auto 50vw auto 45 vw;
+}
+
+.answer {
+  background-color: purple;
+  width: 45%;
+  height: 100px;
+  margin: 2px;
+}
