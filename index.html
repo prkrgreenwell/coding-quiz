@@ -9,8 +9,8 @@
   </head>
   <body>
     <header>
-      <div class="high-scores">View High Scores</div>
-      <div class="Time">Time:</div>
+      <div class="view-high-scores">View High Scores</div>
+      <div class="Time">Time: 48</div>
     </header>
     <div class="view-box" id="opening-screen">
       <h1>Coding Quiz Challenge</h1>
@@ -19,7 +19,7 @@
         Choose your answer quickly but keep in mind that incorrect questions
         will penalize your time by 10 seconds. Good Luck!
       </h2>
-      <button type="button">Begin Game</button>
+      <button type="button" id="start-button">Begin Game</button>
     </div>
     <div class="view-box" id="quiz-screen">
       <h2 id="question">What is Newton's 1st Law?</h2>
@@ -28,6 +28,36 @@
         <div class="answer" id="answer-b"></div>
         <div class="answer" id="answer-c"></div>
         <div class="answer" id="answer-d"></div>
+      </div>
+    </div>
+    <div class="view-box" id="end-screen">
+      <div class="end-box">
+        <h2 id="times-up">Time's Up!</h2>
+        <h3>Your Final Score is:</h3>
+        <label class="name-input" for="name-input">Enter name:</label>
+        <input
+          type="text"
+          class="name-input"
+          id="name-input"
+          name="name-input"
+        />
+        <button type="button" id="submit-name">Submit</button>
+      </div>
+    </div>
+    <div class="view-box" id="high-score-screen">
+      <div class="scores-box">
+        <h2>High Scores</h2>
+        <ol class="high-score-list">
+          <li id="hs-1"></li>
+          <li id="hs-2"></li>
+          <li id="hs-3"></li>
+          <li id="hs-4"></li>
+          <li id="hs-5"></li>
+        </ol>
+        <div class="high-score-buttons">
+          <button id="go-back">Go Back</button>
+          <button id="clear-scores">Clear High Scores</button>
+        </div>
       </div>
     </div>
 
