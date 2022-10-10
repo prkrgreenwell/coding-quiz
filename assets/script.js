@@ -8,13 +8,23 @@ var beginQuiz = document.querySelector("#start-button");
 var viewScoresLink = document.getElementById("view-high-scores");
 
 // Set up the timer
-var count = 10;
-if (count > 0) {
-  setInterval(countDown, 1000);
-}
+//TO-DO get timer to stop at 0
+//TO-DO display timer on screen
+//TO-DO time penalty
+//TO-DO move to end screen when time runs out
+var timeLeft = 10;
+var time = document.getElementById("time");
+
+var timerId = setInterval(countDown, 1000);
+
 function countDown() {
-  console.log(count);
-  count--;
+  if (timeLeft >= 0) {
+    time.innerHTML = "Time: " + timeLeft;
+    timeLeft--;
+  } else {
+    clearTimeout;
+    //insert breakpoint here
+  }
 }
 
 // Moves from beginning screen and starts the quiz
