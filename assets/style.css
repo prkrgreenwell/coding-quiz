@@ -55,7 +55,6 @@ button {
   background-color: purple;
   color: white;
   border-radius: 25px;
-  font-size: large;
 }
 
 #question {
@@ -136,6 +135,10 @@ button:hover {
 @media screen and (min-width: 425px) {
   .name-input {
     width: 60%;
+    font-size: large;
+  }
+
+  button {
     font-size: large;
   }
 }
