@@ -172,3 +172,7 @@ button:hover {
 #high-score-screen {
   display: none;
 }
+
+.name-input {
+  display: none;
+}
