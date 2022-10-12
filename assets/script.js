@@ -20,10 +20,16 @@ var nameInput = document.getElementById("name-input");
 var endButton = document.getElementById("end-button");
 var mainMenuScores = document.getElementById("go-back");
 var clearScores = document.getElementById("clear-scores");
-var timeLeft = 30;
+var hs1 = document.getElementById("hs-1");
+var hs2 = document.getElementById("hs-2");
+var hs3 = document.getElementById("hs-3");
+var hs4 = document.getElementById("hs-4");
+var hs5 = document.getElementById("hs-5");
+var timeLeft;
 
 // timer function: called when moved to quiz screen
 function startQuiz() {
+  timeLeft = 30;
   question.innerHTML = "Which of the following is not a loop method?";
   question.setAttribute("question", "question-1");
   answerA.innerHTML = "for";
@@ -31,6 +37,19 @@ function startQuiz() {
   answerC.innerHTML = "if";
   answerD.innerHTML = "do while";
   answerC.setAttribute("wrongness", "correct");
+
+  function timesUp(timerId) {
+    clearTimeout(timerId);
+    time.innerHTML = "Time: 0";
+    quizScreen.style.display = "none";
+    endScreen.style.display = "flex";
+
+    viewScoresLink.style.visibility = "visible";
+    endButton.addEventListener("click", (e) => {
+      endScreen.style.display = "none";
+      openingScreen.style.display = "flex";
+    });
+  }
 
   var timerId = setInterval(countDown, 1000);
   function countDown() {
@@ -50,19 +69,6 @@ function startQuiz() {
   }
 }
 
-function timesUp(timerId) {
-  clearTimeout(timerId);
-  time.innerHTML = "Time: 0";
-  quizScreen.style.display = "none";
-  endScreen.style.display = "flex";
-
-  viewScoresLink.style.visibility = "visible";
-  endButton.addEventListener("click", (e) => {
-    endScreen.style.display = "none";
-    openingScreen.style.display = "flex";
-  });
-}
-
 function highScores() {
   openingScreen.style.display = "none";
   viewScoresLink.style.visibility = "hidden";
@@ -71,18 +77,39 @@ function highScores() {
 
   mainMenuScores.addEventListener("click", (e) => {
     openingScreen.style.display = "flex";
-    (highScoreScreen.style.display = "none"),
-      (viewScoresLink.style.visibility = "visible");
+    highScoreScreen.style.display = "none";
+    viewScoresLink.style.visibility = "visible";
   });
+}
+
+function setNewScore(name, time) {
+  var newName = name;
+  var score = time;
+  var scoreArray = [hs1, hs2, hs3, hs4, hs5];
+
+  for (var i = 0; i < scoreArray.length; i++) {
+    var currentScore = scoreArray[i].getAttribute("score");
+    if (score == null) {
+      return;
+    }
+    if (score > currentScore) {
+      scoreArray[i].innerHTML = newName + ": " + score + " s";
+      scoreArray[i].setAttribute("score", score);
+      score = currentScore;
+      currentScore = null;
+    }
+  }
 }
 
 // Moves from beginning screen and starts the quiz
 beginQuiz.addEventListener("click", (e) => {
   startQuiz();
+  time.style.color = "black";
   openingScreen.style.display = "none";
   viewScoresLink.style.visibility = "hidden";
   quizScreen.style.display = "flex";
   time.style.visibility = "visible";
+  beginQuiz.removeEventListener("click");
 });
 
 // Moves from start screen to high score page
@@ -168,6 +195,7 @@ if (answerSection) {
 
       //Switches to ending screen
       if (questionNumber === "question-5") {
+        question.setAttribute("question", "question-1");
         finalScore.innerHTML = "Your Final Score is: " + timeLeft;
         time.innerHTML = "Time: " + timeLeft;
         quizScreen.style.display = "none";
@@ -176,10 +204,19 @@ if (answerSection) {
         endButton.innerHTML = "Submit";
         nameInput.style.display = "inline";
         enterName.style.display = "inline";
+
+        endButton.addEventListener("click", (e) => {
+          var newScore = document.getElementById("name-input").value;
+          console.log(newScore);
+          console.log(timeLeft);
+          setNewScore(newScore, timeLeft);
+          highScores();
+        });
       }
     }
   });
 }
 
 // To-do list
-// code high score screen
+// high score screen adds extra numbers of scores
+// still need to set local storage
