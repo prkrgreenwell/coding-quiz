@@ -26,7 +26,30 @@ var hs2 = document.getElementById("hs-2");
 var hs3 = document.getElementById("hs-3");
 var hs4 = document.getElementById("hs-4");
 var hs5 = document.getElementById("hs-5");
+var scoreArray = [hs1, hs2, hs3, hs4, hs5];
 var timeLeft;
+
+function setUpHighScores() {
+  hs1.setAttribute("name", localStorage.getItem("hsName1"));
+  hs2.setAttribute("name", localStorage.getItem("hsName2"));
+  hs3.setAttribute("name", localStorage.getItem("hsName3"));
+  hs4.setAttribute("name", localStorage.getItem("hsName4"));
+  hs5.setAttribute("name", localStorage.getItem("hsName5"));
+
+  hs1.setAttribute("score", localStorage.getItem("hsScore1"));
+  hs2.setAttribute("score", localStorage.getItem("hsScore2"));
+  hs3.setAttribute("score", localStorage.getItem("hsScore3"));
+  hs4.setAttribute("score", localStorage.getItem("hsScore4"));
+  hs5.setAttribute("score", localStorage.getItem("hsScore5"));
+
+  for (var i = 0; i <= scoreArray.length; i++) {
+    var currentName = scoreArray[i].getAttribute("name");
+    var currentScore = scoreArray[i].getAttribute("score");
+    if (currentScore != 0) {
+      scoreArray[i].innerHTML = currentName + ": " + currentScore + " s";
+    }
+  }
+}
 
 // timer function: called when moved to quiz screen
 function startQuiz() {
@@ -76,6 +99,7 @@ function highScores() {
   viewScoresLink.style.visibility = "hidden";
   highScoreScreen.style.display = "flex";
   endScreen.style.display = "none";
+  setUpHighScores();
 }
 
 mainMenuScores.addEventListener("click", (e) => {
@@ -88,20 +112,34 @@ mainMenuScores.addEventListener("click", (e) => {
 function setNewScore(name, time) {
   var newName = name;
   var score = time;
-  var scoreArray = [hs1, hs2, hs3, hs4, hs5];
 
   for (var i = 0; i < scoreArray.length; i++) {
     var currentScore = scoreArray[i].getAttribute("score");
-    if (currentScore == null) {
-      return;
-    }
+    var currentName = scoreArray[i].getAttribute("name");
+
     if (score > currentScore) {
       scoreArray[i].innerHTML = newName + ": " + score + " s";
       scoreArray[i].setAttribute("score", score);
+      scoreArray[i].setAttribute("name", newName);
       score = currentScore;
+      newName = currentName;
       currentScore = null;
+      currentName = null;
     }
   }
+
+  localStorage.setItem("hsName1", hs1.getAttribute("name"));
+  localStorage.setItem("hsName2", hs2.getAttribute("name"));
+  localStorage.setItem("hsName3", hs3.getAttribute("name"));
+  localStorage.setItem("hsName4", hs4.getAttribute("name"));
+  localStorage.setItem("hsName5", hs5.getAttribute("name"));
+
+  localStorage.setItem("hsScore1", hs1.getAttribute("score"));
+  localStorage.setItem("hsScore2", hs2.getAttribute("score"));
+  localStorage.setItem("hsScore3", hs3.getAttribute("score"));
+  localStorage.setItem("hsScore4", hs4.getAttribute("score"));
+  localStorage.setItem("hsScore5", hs5.getAttribute("score"));
+  setUpHighScores();
 }
 
 // Moves from beginning screen and starts the quiz
@@ -221,13 +259,10 @@ mainMenuButton.addEventListener("click", (e) => {
 
 submitButton.addEventListener("click", (e) => {
   var newScore = document.getElementById("name-input").value;
-  console.log(newScore);
-  console.log(timeLeft);
   document.getElementById("name-input").value = "";
   setNewScore(newScore, timeLeft);
   highScores();
 });
 
 // To-do list
-// high score screen adds extra numbers of scores
-// still need to set local storage
+// Glitchy high scores, but it's 2 in the morning, and I have to stop working on this project

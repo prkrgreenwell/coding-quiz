@@ -180,3 +180,7 @@ button:hover {
 #submit {
   display: none;
 }
+
+#clear-scores {
+  display: none;
+}
