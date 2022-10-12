@@ -176,3 +176,7 @@ button:hover {
 .name-input {
   display: none;
 }
+
+#submit {
+  display: none;
+}

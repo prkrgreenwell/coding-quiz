@@ -17,7 +17,8 @@ var answerD = document.getElementById("answer-d");
 var finalScore = document.getElementById("final-score");
 var enterName = document.getElementById("enter-name");
 var nameInput = document.getElementById("name-input");
-var endButton = document.getElementById("end-button");
+var submitButton = document.getElementById("submit");
+var mainMenuButton = document.getElementById("main-menu");
 var mainMenuScores = document.getElementById("go-back");
 var clearScores = document.getElementById("clear-scores");
 var hs1 = document.getElementById("hs-1");
@@ -44,16 +45,12 @@ function startQuiz() {
     quizScreen.style.display = "none";
     endScreen.style.display = "flex";
     finalScore.innerHTML = "Try Again?";
-    endButton.innerHTML = "Main Menu";
-    endButton.setAttribute("reading", "main-menu");
+    submitButton.style.display = "none";
+    mainMenuButton.style.display = "inline";
     nameInput.style.display = "none";
     enterName.style.display = "none";
 
     viewScoresLink.style.visibility = "visible";
-    endButton.addEventListener("click", (e) => {
-      endScreen.style.display = "none";
-      openingScreen.style.display = "flex";
-    });
   }
 
   var timerId = setInterval(countDown, 1000);
@@ -79,13 +76,14 @@ function highScores() {
   viewScoresLink.style.visibility = "hidden";
   highScoreScreen.style.display = "flex";
   endScreen.style.display = "none";
-
-  mainMenuScores.addEventListener("click", (e) => {
-    openingScreen.style.display = "flex";
-    highScoreScreen.style.display = "none";
-    viewScoresLink.style.visibility = "visible";
-  });
 }
+
+mainMenuScores.addEventListener("click", (e) => {
+  openingScreen.style.display = "flex";
+  highScoreScreen.style.display = "none";
+  viewScoresLink.style.visibility = "visible";
+  time.style.visibility = "hidden";
+});
 
 function setNewScore(name, time) {
   var newName = name;
@@ -204,24 +202,31 @@ if (answerSection) {
         time.innerHTML = "Time: " + timeLeft;
         quizScreen.style.display = "none";
         endScreen.style.display = "flex";
-        endButton.setAttribute("reading", "submit");
-        endButton.innerHTML = "Submit";
+        mainMenuButton.style.display = "none";
+        submitButton.style.display = "inline";
         nameInput.style.display = "inline";
         enterName.style.display = "inline";
         answerD.setAttribute("wrongness", "wrong");
-
-        endButton.addEventListener("click", (e) => {
-          var newScore = document.getElementById("name-input").value;
-          console.log(newScore);
-          console.log(timeLeft);
-          document.getElementById("name-input").value = "";
-          setNewScore(newScore, timeLeft);
-          highScores();
-        });
       }
     }
   });
 }
+
+//All my event listeners in one place
+mainMenuButton.addEventListener("click", (e) => {
+  endScreen.style.display = "none";
+  openingScreen.style.display = "flex";
+  time.style.visibility = "hidden";
+});
+
+submitButton.addEventListener("click", (e) => {
+  var newScore = document.getElementById("name-input").value;
+  console.log(newScore);
+  console.log(timeLeft);
+  document.getElementById("name-input").value = "";
+  setNewScore(newScore, timeLeft);
+  highScores();
+});
 
 // To-do list
 // high score screen adds extra numbers of scores
