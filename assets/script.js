@@ -43,6 +43,11 @@ function startQuiz() {
     time.innerHTML = "Time: 0";
     quizScreen.style.display = "none";
     endScreen.style.display = "flex";
+    finalScore.innerHTML = "Try Again?";
+    endButton.innerHTML = "Main Menu";
+    endButton.setAttribute("reading", "main-menu");
+    nameInput.style.display = "none";
+    enterName.style.display = "none";
 
     viewScoresLink.style.visibility = "visible";
     endButton.addEventListener("click", (e) => {
@@ -89,7 +94,7 @@ function setNewScore(name, time) {
 
   for (var i = 0; i < scoreArray.length; i++) {
     var currentScore = scoreArray[i].getAttribute("score");
-    if (score == null) {
+    if (currentScore == null) {
       return;
     }
     if (score > currentScore) {
@@ -109,7 +114,6 @@ beginQuiz.addEventListener("click", (e) => {
   viewScoresLink.style.visibility = "hidden";
   quizScreen.style.display = "flex";
   time.style.visibility = "visible";
-  beginQuiz.removeEventListener("click");
 });
 
 // Moves from start screen to high score page
@@ -204,11 +208,13 @@ if (answerSection) {
         endButton.innerHTML = "Submit";
         nameInput.style.display = "inline";
         enterName.style.display = "inline";
+        answerD.setAttribute("wrongness", "wrong");
 
         endButton.addEventListener("click", (e) => {
           var newScore = document.getElementById("name-input").value;
           console.log(newScore);
           console.log(timeLeft);
+          document.getElementById("name-input").value = "";
           setNewScore(newScore, timeLeft);
           highScores();
         });
